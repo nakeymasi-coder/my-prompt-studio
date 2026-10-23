@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Prompt Studio</title>
+<style>
+:root{font-family:Arial,Helvetica,sans-serif;color:#183650;background:#f1f7fc;font-size:18px;color-scheme:light}*{box-sizing:border-box}body{margin:0;background:linear-gradient(150deg,#e2f1ff,#fafbfd 55%,#edf2f7)}main{max-width:760px;margin:auto;padding:44px 20px 36px}header{margin-bottom:30px}.eyebrow{font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:#37688f;font-weight:700}h1{font-size:clamp(2rem,7vw,2.8rem);letter-spacing:-.045em;margin:12px 0;color:#153e62}header p{line-height:1.6;color:#4c657b;max-width:570px;margin:0}.butterfly{display:inline-block;vertical-align:middle;width:32px;height:32px;margin-left:8px}form,.result{border:1px solid #ced9e3;border-radius:22px;background:#ffffffed;padding:28px;box-shadow:0 8px 28px #224b7110}.field{margin-bottom:26px}label,.label{display:block;font-weight:700;margin-bottom:10px;font-size:1rem}.number{color:#6486a0;font-weight:400;margin-right:8px}.optional{font-weight:400;color:#5e7284;font-size:.85rem}input[type=text],textarea,select{display:block;width:100%;font:inherit;font-size:1rem;border:1px solid #b3c5d5;background:#fbfdff;border-radius:11px;padding:14px;color:#163954;min-height:52px;line-height:1.5}select{padding-right:30px}textarea{resize:vertical;min-height:116px}::placeholder{color:#667b8c;opacity:1}:focus-visible{outline:3px solid #258fe2;outline-offset:3px}.hint{color:#5c7183;font-size:.8rem;line-height:1.5;margin:8px 0 0}.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.chip{position:relative;font-weight:400;font-size:.76rem;margin:0;cursor:pointer;border:1px solid #c4d6e5;border-radius:22px;background:#f0f7fd;padding:12px;min-height:44px;display:inline-flex;align-items:center}.chip input{position:absolute;opacity:0;width:1px;height:1px}.chip:has(input:focus-visible){outline:3px solid #258fe2;outline-offset:3px}.chip:has(input:checked){background:#dcefff;border-color:#568eb8}button{font:inherit;font-weight:700;border-radius:12px;min-height:54px;padding:14px 20px;cursor:pointer;border:1px solid #9fb5c6}button:disabled{opacity:.55;cursor:default}.primary{background:#196ead;color:white;border-color:#196ead;width:100%}.primary:hover{background:#125b93}.actions{display:flex;gap:12px;margin-top:18px}.actions button{flex:1;background:linear-gradient(#fff,#e3e9ef);color:#23445e}.result{margin-top:24px}h2{font-size:1.25rem;margin:0 0 9px}.result textarea{margin-top:18px;min-height:360px;background:#f7fbff;font-size:.92rem;line-height:1.7}.feedback{font-size:.85rem;line-height:1.5;margin:10px 0 0;color:#9d2929}.feedback:empty{display:none}footer{font-size:.75rem;text-align:center;color:#5c7183;margin-top:22px;line-height:1.5}@media(max-width:480px){main{padding:26px 14px}form,.result{padding:21px 17px;border-radius:17px}.actions{flex-direction:column}header{margin-bottom:23px}}
+</style>
+</head>
+<body>
+<main>
+<header><div class="eyebrow">All-Purpose Prompt Studio</div><h1>My Prompt Studio <svg class="butterfly" aria-hidden="true" viewBox="0 0 40 40"><defs><linearGradient id="wing" x2="1" y2="1"><stop stop-color="#bcdfff"/><stop offset=".5" stop-color="#6caee4"/><stop offset="1" stop-color="#dbe3ec"/></linearGradient></defs><path d="M19 21C2 0 0 18 9 23 0 37 15 40 19 24M21 21C38 0 40 18 31 23 40 37 25 40 21 24" fill="url(#wing)" stroke="#7499b7"/><path d="M20 15v17m0-16-4-5m4 5 4-5" fill="none" stroke="#425e75" stroke-width="1.8" stroke-linecap="round"/></svg></h1><p>Turn your idea into a complete prompt. Choose your settings, describe what you need, and copy your prompt into ChatGPT.</p></header>
+<form id="studio" novalidate>
+<div class="field"><label for="category"><span class="number">01</span>Category</label><select id="category"><option value="">Choose a category</option><option>Business &amp; Marketing</option><option>Social Media Content</option><option>Sales Page &amp; Product Copy</option><option>Email Writing</option><option>Blog &amp; Article Writing</option><option>Story &amp; Creative Writing</option><option>Video Script</option><option>Business Planning &amp; Ideas</option><option>Coaching &amp; Teaching</option><option>Personal Productivity</option></select></div>
+<div class="field"><label for="topic"><span class="number">02</span>Your topic or goal</label><textarea id="topic" placeholder="What would you like help with? Use your own words." aria-describedby="topic-error"></textarea><p id="topic-error" class="feedback" role="alert"></p></div>
+<div class="field"><label for="tone"><span class="number">03</span>Tone</label><select id="tone"><option value="">Choose a tone</option><option>Friendly</option><option>Professional</option><option>Bold &amp; Confident</option><option>Warm &amp; Encouraging</option><option>Funny</option><option>Luxury</option><option>Straightforward</option></select></div>
+<div class="field"><label for="audience"><span class="number">04</span>Audience</label><input id="audience" type="text" placeholder="Who is this for?"><p class="hint">Type your own audience or tap an example.</p><div class="chips" aria-label="Audience examples"><label class="chip"><input type="radio" name="example" value="women over 40 starting a business">women over 40 starting a business</label><label class="chip"><input type="radio" name="example" value="busy moms">busy moms</label><label class="chip"><input type="radio" name="example" value="small business owners">small business owners</label><label class="chip"><input type="radio" name="example" value="beginners">beginners</label></div></div>
+<div class="field"><label for="format"><span class="number">05</span>Output format</label><select id="format"><option value="">Choose a format</option><option>Short Post</option><option>Long Post</option><option>Full Article</option><option>Email</option><option>Script</option><option>Step-by-Step Plan</option><option>List of Ideas</option><option>Sales Copy</option></select></div>
+<div class="field"><label for="detail"><span class="number">06</span>Detail level</label><select id="detail"><option value="">Choose a detail level</option><option>Quick &amp; Simple</option><option>Standard</option><option>Detailed &amp; Thorough</option></select></div>
+<div class="field"><label for="additional"><span class="number">07</span>Additional instructions <span class="optional">(optional)</span></label><textarea id="additional" placeholder="Anything else to include, avoid, or keep exactly as written?"></textarea></div>
+<button class="primary" type="submit">Generate Prompt</button><p id="form-error" class="feedback" role="alert"></p>
+</form>
+<section class="result" aria-labelledby="result-title"><h2 id="result-title">Your finished prompt</h2><p class="hint">Your prompt will appear here, ready to copy.</p><textarea id="output" readonly aria-label="Your complete generated prompt" placeholder="Choose your settings and select Generate Prompt."></textarea><div class="actions"><button id="copy" type="button" disabled>Copy Prompt</button><button id="clear" type="button">Clear All</button></div><p id="copy-status" class="hint" role="status" aria-live="polite"></p></section>
+<footer>This tool writes prompts. Paste your finished prompt into ChatGPT to create your content.</footer>
+</main>
+<script>
+'use strict';
+const $=id=>document.getElementById(id);
+const expertise={
+'Business & Marketing':['business and marketing strategist','Connect the message to the business goal. Use practical positioning and specific benefits.','Check that the strategy serves the stated goal and includes a clear next action.'],
+'Social Media Content':['social media content creator','Make the content engaging and easy to read. Use a hook and a relevant call to action. Do not add hashtags unless requested.','Check for a strong hook, audience relevance, and a clear call to action.'],
+'Sales Page & Product Copy':['copywriter','Explain the offer, benefits, and value clearly. Address relevant objections and use a clear call to action. Never invent scarcity, testimonials, or guarantees.','Check that the offer is clear, benefits are specific, and the call to action is easy to follow.'],
+'Email Writing':['email marketer','Include a strong subject line and a focused email body with a clear purpose and next step.','Check the subject line, recipient relevance, readability, and call to action.'],
+'Blog & Article Writing':['blog writer','Use a clear introduction, useful sections, and a purposeful ending. Keep claims accurate; do not invent sources.','Check organization, useful coverage, and factual claims.'],
+'Story & Creative Writing':['storyteller and creative writer','Develop distinct characters, a coherent setting, and a meaningful conflict. Maintain consistent character details and voice.','Check for a beginning, middle, and end, consistent characters, and a satisfying payoff.'],
+'Video Script':['video scriptwriter','Write spoken dialogue naturally. Include useful scene or visual cues and respect any requested duration.','Check the opening hook, pacing, speakable dialogue, and clear ending.'],
+'Business Planning & Ideas':['business coach and idea strategist','Suggest practical ideas aligned with the stated goal and audience. Separate assumptions from facts and consider resources and feasibility.','Check feasibility, clear priorities, and actionable next steps. Do not promise financial results.'],
+'Coaching & Teaching':['coach and teacher','Explain unfamiliar terms simply. Build from basic concepts to practice, using supportive language and useful examples.','Check learning clarity, logical progression, and a practical way to apply or verify learning.'],
+'Personal Productivity':['productivity coach','Prioritize realistic actions. Break large tasks into manageable steps and account for stated time or resource limits.','Check that priorities are clear and actions are manageable, ordered, and practical.']};
+const details={'Quick & Simple':'short and to the point','Standard':'solid and complete','Detailed & Thorough':'deep, with examples and steps'};
+function buildPrompt(v){
+const [role,rules,checks]=expertise[v.category];
+const words=v.topic.trim().split(/\s+/);const title=words.slice(0,9).join(' ')+(words.length>9?'…':'');
+const plan=v.format==='Step-by-Step Plan'?'\nPresent clear steps in the order they should be completed, including a simple way to verify success.':'';
+const sections=[
+'PROMPT TITLE: '+title,
+'ROLE:\nYou are an expert '+role+'.',
+'YOUR ASSIGNMENT:\nCreate a '+v.format+' for this audience: '+v.audience+'.\nMy topic or goal, in my exact words:\n'+v.topic,
+'CREATIVE DIRECTION & REQUIREMENTS:\nTone: '+v.tone+'.\nAudience: '+v.audience+'.\nOutput format: '+v.format+'.\nDetail level: '+v.detail+' — '+details[v.detail]+'.\n'+rules+'\nMy exact words and explicit instructions take priority over default category guidance. Preserve any wording I ask you to keep.'+plan,
+'QUALITY STANDARDS:\n'+checks+plan+'\nCheck spelling and clarity. Keep my meaning. Make the finished work ready to use. Do not invent facts, statistics, or claims about my business.'
+];
+if(v.additional.trim())sections.push('ADDITIONAL INSTRUCTIONS:\n'+v.additional);
+sections.push('FINAL OUTPUT:\nDeliver ONLY the finished work in the chosen '+v.format+' format, ready to use. Do not include extra explanation before or after.');
+return sections.join('\n\n');
+}
+document.querySelectorAll('input[name="example"]').forEach(input=>input.addEventListener('change',()=>{$('audience').value=input.value;}));
+$('audience').addEventListener('input',()=>document.querySelectorAll('input[name="example"]').forEach(input=>input.checked=false));
+$('topic').addEventListener('input',()=>{$('topic-error').textContent='';$('topic').removeAttribute('aria-invalid');});
+$('studio').addEventListener('submit',event=>{
+event.preventDefault();$('topic-error').textContent='';$('form-error').textContent='';$('copy-status').textContent='';
+if(!$('topic').value.trim()){$('topic-error').textContent='Type your topic or goal first.';$('topic').setAttribute('aria-invalid','true');$('topic').focus();return;}
+const names={category:'Choose a category.',tone:'Choose a tone.',audience:'Type your audience or tap an example.',format:'Choose an output format.',detail:'Choose a detail level.'};
+for(const [id,message]of Object.entries(names)){if(!$(id).value.trim()){$('form-error').textContent=message;$(id).focus();return;}}
+const values={};['category','topic','tone','audience','format','detail','additional'].forEach(id=>values[id]=$(id).value);
+$('output').value=buildPrompt(values);$('copy').disabled=false;
+});
+$('copy').addEventListener('click',async()=>{
+const value=$('output').value;if(!value)return;
+try{if(!navigator.clipboard||!window.isSecureContext)throw new Error('Fallback');await navigator.clipboard.writeText(value);$('copy-status').textContent='Prompt copied.';}
+catch(error){$('output').focus();$('output').select();$('output').setSelectionRange(0,value.length);let copied=false;try{copied=document.execCommand('copy');}catch(e){}$('copy-status').textContent=copied?'Prompt copied.':'Your prompt is selected. Press Ctrl+C (Windows) or Command+C (Mac), or touch and hold to copy.';}
+});
+$('clear').addEventListener('click',()=>{$('studio').reset();$('output').value='';$('copy').disabled=true;['topic-error','form-error','copy-status'].forEach(id=>$(id).textContent='');$('topic').removeAttribute('aria-invalid');$('category').focus();});
+</script>
+</body></html>
