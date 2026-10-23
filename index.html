@@ -5,6 +5,18 @@
 <title>My Prompt Studio</title>
 <style>
 :root{font-family:Arial,Helvetica,sans-serif;color:#183650;background:#f1f7fc;font-size:18px;color-scheme:light}*{box-sizing:border-box}body{margin:0;background:linear-gradient(150deg,#e2f1ff,#fafbfd 55%,#edf2f7)}main{max-width:760px;margin:auto;padding:44px 20px 36px}header{margin-bottom:30px}.eyebrow{font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:#37688f;font-weight:700}h1{font-size:clamp(2rem,7vw,2.8rem);letter-spacing:-.045em;margin:12px 0;color:#153e62}header p{line-height:1.6;color:#4c657b;max-width:570px;margin:0}.butterfly{display:inline-block;vertical-align:middle;width:32px;height:32px;margin-left:8px}form,.result{border:1px solid #ced9e3;border-radius:22px;background:#ffffffed;padding:28px;box-shadow:0 8px 28px #224b7110}.field{margin-bottom:26px}label,.label{display:block;font-weight:700;margin-bottom:10px;font-size:1rem}.number{color:#6486a0;font-weight:400;margin-right:8px}.optional{font-weight:400;color:#5e7284;font-size:.85rem}input[type=text],textarea,select{display:block;width:100%;font:inherit;font-size:1rem;border:1px solid #b3c5d5;background:#fbfdff;border-radius:11px;padding:14px;color:#163954;min-height:52px;line-height:1.5}select{padding-right:30px}textarea{resize:vertical;min-height:116px}::placeholder{color:#667b8c;opacity:1}:focus-visible{outline:3px solid #258fe2;outline-offset:3px}.hint{color:#5c7183;font-size:.8rem;line-height:1.5;margin:8px 0 0}.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.chip{position:relative;font-weight:400;font-size:.76rem;margin:0;cursor:pointer;border:1px solid #c4d6e5;border-radius:22px;background:#f0f7fd;padding:12px;min-height:44px;display:inline-flex;align-items:center}.chip input{position:absolute;opacity:0;width:1px;height:1px}.chip:has(input:focus-visible){outline:3px solid #258fe2;outline-offset:3px}.chip:has(input:checked){background:#dcefff;border-color:#568eb8}button{font:inherit;font-weight:700;border-radius:12px;min-height:54px;padding:14px 20px;cursor:pointer;border:1px solid #9fb5c6}button:disabled{opacity:.55;cursor:default}.primary{background:#196ead;color:white;border-color:#196ead;width:100%}.primary:hover{background:#125b93}.actions{display:flex;gap:12px;margin-top:18px}.actions button{flex:1;background:linear-gradient(#fff,#e3e9ef);color:#23445e}.result{margin-top:24px}h2{font-size:1.25rem;margin:0 0 9px}.result textarea{margin-top:18px;min-height:360px;background:#f7fbff;font-size:.92rem;line-height:1.7}.feedback{font-size:.85rem;line-height:1.5;margin:10px 0 0;color:#9d2929}.feedback:empty{display:none}footer{font-size:.75rem;text-align:center;color:#5c7183;margin-top:22px;line-height:1.5}@media(max-width:480px){main{padding:26px 14px}form,.result{padding:21px 17px;border-radius:17px}.actions{flex-direction:column}header{margin-bottom:23px}}
+
+/* Optional decorative animation layer. Never intercepts page interactions. */
+main{position:relative;z-index:1}
+.glam-float-layer{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.glam-float{position:absolute;bottom:-12vh;left:var(--x);font-size:var(--size);opacity:0;filter:drop-shadow(0 2px 5px #6599ba42);animation:glam-rise var(--dur) linear infinite;animation-delay:var(--delay);will-change:transform,opacity}
+@keyframes glam-rise{0%{transform:translate3d(0,0,0) rotate(-12deg) scale(.8);opacity:0}12%{opacity:.52}50%{transform:translate3d(var(--drift),-55vh,0) rotate(15deg) scale(1)}85%{opacity:.46}100%{transform:translate3d(calc(var(--drift) * -0.4),-117vh,0) rotate(-9deg) scale(.9);opacity:0}}
+.glam-motion-toggle{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid #b3cddd;border-radius:999px;padding:8px 13px;font-size:.76rem;font-weight:700;color:#235779;cursor:pointer;margin-top:16px;min-height:44px}
+.glam-motion-toggle:hover{background:#ebf6ff}
+.glam-motion-toggle:focus-visible{outline:3px solid #258fe2;outline-offset:3px}
+.glam-float-layer[hidden]{display:none}
+@media(prefers-reduced-motion:reduce){.glam-float-layer{display:none!important}}
+
 </style>
 </head>
 <body>
@@ -71,4 +83,34 @@ catch(error){$('output').focus();$('output').select();$('output').setSelectionRa
 });
 $('clear').addEventListener('click',()=>{$('studio').reset();$('output').value='';$('copy').disabled=true;['topic-error','form-error','copy-status'].forEach(id=>$(id).textContent='');$('topic').removeAttribute('aria-invalid');$('category').focus();});
 </script>
+
+<script>
+/* Standalone decoration: leaves every generator control and handler unchanged. */
+(function(){
+  const header=document.querySelector('main header')||document.querySelector('header');
+  if(!header)return;
+  const layer=document.createElement('div');layer.className='glam-float-layer';layer.setAttribute('aria-hidden','true');
+  const icons=['🦋','✨','🩷','✦','🦋','✧','💙','✨','🦋','♡','✦','✨'];
+  icons.forEach((symbol,i)=>{
+    const el=document.createElement('span');el.className='glam-float';el.textContent=symbol;
+    const lane=[3,94,12,87,5,97,17,83,9,91,14,86][i];
+    el.style.setProperty('--x',lane+'%');
+    el.style.setProperty('--size',(15+(i%4)*4)+'px');
+    el.style.setProperty('--dur',(13+(i%5)*3)+'s');
+    el.style.setProperty('--delay',(-i*2.1)+'s');
+    el.style.setProperty('--drift',((i%2? -1:1)*(15+i*3))+'px');
+    layer.appendChild(el);
+  });
+  document.body.appendChild(layer);
+  const button=document.createElement('button');button.type='button';button.className='glam-motion-toggle';
+  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
+  let enabled=!reduced.matches;
+  try {const saved=localStorage.getItem('glam-motion');if(saved!==null)enabled=saved==='on';}catch(e){}
+  function update(){layer.hidden=!enabled||reduced.matches;button.textContent=enabled?'🦋 Animations: On':'🦋 Animations: Off';button.setAttribute('aria-pressed',String(enabled));}
+  button.addEventListener('click',()=>{enabled=!enabled;try{localStorage.setItem('glam-motion',enabled?'on':'off');}catch(e){}update();});
+  reduced.addEventListener?.('change',update);
+  header.appendChild(button);update();
+})();
+</script>
+
 </body></html>
